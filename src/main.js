@@ -17,23 +17,26 @@ const router = createRouter({
     {
       path: '/teams',
       component: TeamsList,
-      alias: '/', // Alias ini digunakan untuk mengalihkan tampilan ke komponen yang bersangkutan.
+      // alias: '/', // Alias ini digunakan untuk mengalihkan tampilan ke komponen yang bersangkutan.
+      // Children ini berfungsi sebagai nested route, yang dimana nested route ini bekerja dengan cara menjadikan suatu route merupakan anak dari suatu root route. Bingung?, yo sini tak jelasin. Kalo kita misalkan, salah satu route yang ada dichildren ini jadikan root route which is dia ngga ada di children, otomatis dia akan menampilkan view nya dari App.vue. Kalo misalnya children, itu router-view nya hanya bisa diakses oleh route yang menjadi parentnya gitu. Biar ngga bingung coba liat ke component team members deh.
+      children: [
+        {
+          path: '/teams/:teamId',
+          component: TeamMembers,
+          props: true,
+        },
+      ],
     },
     {
       path: '/users',
       component: UsersList,
     },
     {
-      path: '/teams/:teamId',
-      component: TeamMembers,
-      props: true,
-    },
-    {
       path: '/:notFound(.*)',
       component: NotFound,
     },
   ],
-  // linkActiveClass: 'active', // Digunakan untuk aliasing active class. Kan awalnya nama dari link active classnya itu "router-link-active" tapi kalo mau ngubah bisa disini misalnya kayak "active".WW
+  // linkActiveClass: 'active', // Digunakan untuk aliasing active class. Kan awalnya nama dari link active classnya itu "router-link-active" tapi kalo mau ngubah bisa disini misalnya kayak "active".
 });
 
 const app = createApp(App);

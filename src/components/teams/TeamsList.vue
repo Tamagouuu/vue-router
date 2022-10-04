@@ -1,5 +1,6 @@
 <template>
   <ul>
+    <router-view></router-view>
     <teams-item
       v-for="team in teams"
       :key="team.id"
