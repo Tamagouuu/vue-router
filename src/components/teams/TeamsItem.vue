@@ -12,7 +12,11 @@ export default {
 
   computed: {
     linkToDetail() {
-      return '/teams/' + this.id;
+      return {
+        name: 'team-members',
+        params: { teamId: this.id },
+        query: { sort: 'asc' }, // ini digunakan untuk menambah parameter get request sih bisa diambil dengan cara this.$route.query.sort gitu aja
+      };
     },
   },
 };
