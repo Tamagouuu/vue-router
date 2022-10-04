@@ -16,10 +16,13 @@
 <script>
 import UserItem from '../users/UserItem.vue';
 
+// Oke sekarang kita akan passing paramater sebagai props, hal itu dilakukan karena kita akan membuat component ini lebih fleksibel karena jika kita hanya bergantung pada $router itu hanya akan bisa diakses ketika kita akan menggunakan routing saja, namun jika kita menggunakan props itu dapat digunakan juga sebagai component jika ingin digunakan pada suatu template dll. Cara untuk melakukan hal tersebut yaitu sebagai berikut, yang pertama tulis option props di routes dan buat menjadi true. Kemudian baru kita bisa menerima props pada component yang bersangkutan.
+
 export default {
   components: {
     UserItem,
   },
+  props: ['teamId'],
   inject: ['users', 'teams'],
   data() {
     return {
@@ -29,9 +32,8 @@ export default {
   },
 
   methods: {
-    changeData(route) {
-      const params = route.params.teamId;
-      const team = this.teams.find((team) => team.id == params);
+    changeData(teamId) {
+      const team = this.teams.find((team) => team.id == teamId);
       const members = [];
       for (const member in team.members) {
         const data = this.users.find((user) => user.id == team.members[member]);
@@ -43,12 +45,12 @@ export default {
   },
 
   created() {
-    this.changeData(this.$route);
+    this.changeData(this.teamId);
   },
 
   watch: {
-    $route(newParams) {
-      this.changeData(newParams);
+    teamId(newId) {
+      this.changeData(newId);
     },
   },
 };

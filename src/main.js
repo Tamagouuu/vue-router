@@ -21,6 +21,7 @@ const router = createRouter({
       name: 'TeamDetail',
       path: '/teams/:teamId',
       component: TeamMembers,
+      props: true,
     },
   ],
   // linkActiveClass: 'active', // Digunakan untuk aliasing active class. Kan awalnya nama dari link active classnya itu "router-link-active" tapi kalo mau ngubah bisa disini misalnya kayak "active".WW
