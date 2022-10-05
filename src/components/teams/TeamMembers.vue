@@ -31,6 +31,8 @@ export default {
     };
   },
 
+  // Oke disini kita akan melakukan proses melihat perubahan dari suatu parameter yang juga akan memengaruhi dari data yang dikirimkan oleh vue. Mengapa demikian, ya tentu karena kalo berubah parameter otomatis data itu pasti berubah dong ya. Tapi kok ribet banget harus diwatch segala perubahannya, itu karena emang cara kerja vue yang tidak mereload semua hal yang terjadi dalam satu komponen, misalnya ni kita sama sama menggunakan komponen A sebagai wadah dari suatu data yang ditampilkan. Nah data ini bergantung dengan parameter kita, ketika kita membuat berpindah tempat menggunakan router links hanya dengan mengganti parameter saja, otomatis hal tersebut tidak akan berubah, karena vue tidak mengetahui perubahan pada parameter yang terjadi dan otomatis tidak akan merubah data. Jadi kita harus membuat watchers, yang memaksa vue untuk melakukan suatu perubahan pada suatu data jika data yang di pantau di berubah.
+
   methods: {
     changeData(teamId) {
       const team = this.teams.find((team) => team.id == teamId);
@@ -43,6 +45,14 @@ export default {
       this.members = members;
     },
   },
+
+  // Ini fungsinya untuk melihat suatu route dari keadaan semula apakah berubah, misalnya dia tiba-tiba nambah parameter atau ganti paramater juga bisa dipantau sama nih function. Sama seperti function lainnya dia juga fungsi nyegat routing yang akan dijalankan kalo misalnya suatu rute di update.
+
+  // beforeRouteUpdate(to, from, next) {
+  //   console.log('Before Route Update');
+  //   console.log(to, from);
+  //   next();
+  // },
 
   created() {
     this.changeData(this.teamId);

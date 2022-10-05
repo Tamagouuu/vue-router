@@ -24,6 +24,14 @@ export default {
       this.$router.push('/teams');
     },
   },
+
+  // Ini merupakan pengecekan terakhir lah bisa dibilang, karena ini dilakukan setelah, beforeEach, beforeEnter dan baru ini dilakukan, hal yang dilakukan sih sama dapat mencegah ataupun memperbolehkan eaaa.
+
+  beforeRouteEnter(to, from, next) {
+    console.log('Before Route Enter a Component');
+    console.log(to, from);
+    next();
+  },
 };
 </script>
 
