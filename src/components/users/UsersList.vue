@@ -1,5 +1,6 @@
 <template>
   <button @click="handleClick">Confirm</button>
+  <button @click="isSaved = true">Confim Saved</button>
   <ul>
     <user-item
       v-for="user in users"
@@ -19,6 +20,12 @@ export default {
   },
   inject: ['users'],
 
+  data() {
+    return {
+      isSaved: false,
+    };
+  },
+
   methods: {
     handleClick() {
       this.$router.push('/teams');
@@ -30,6 +37,19 @@ export default {
   beforeRouteEnter(to, from, next) {
     console.log('Before Route Enter a Component');
     console.log(to, from);
+    next();
+  },
+
+  // Ini berfungsi untuk melakukan pengecekan, sebelum kita meninggalkan suatu page gitu. Misalnya kita mau buat konfirmasi apakah yakin akan meninggalkan rute tersebut misalnya kyk form dll.
+
+  beforeRouteLeave(to, from, next) {
+    console.log('Before Route Leave');
+    console.log(to, from);
+    if (!this.isSaved) {
+      const isConfirm = confirm('Yakin mau keluar ?');
+      next(isConfirm);
+    }
+    next();
     next();
   },
 };
